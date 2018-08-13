@@ -1,0 +1,3 @@
+﻿http://www.codeproject.com/Articles/422573/Model-Validation-in-ASP-NET-MVC
+http://robdmoore.id.au/blog/2012/04/27/unobtrusive-validation-in-asp-net-mvc-3-and-4/
+http://foolproof.codeplex.com/
