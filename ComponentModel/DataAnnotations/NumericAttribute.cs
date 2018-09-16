@@ -198,22 +198,14 @@ namespace System.ComponentModel.DataAnnotations
 				throw;
 			}
 		}
-		#endregion
+        #endregion
 
-		#region Public Properties
-		public NumericType NumericType
-		{
-			get { return _type; }
-			set { _type = value; }
-		}
-		#endregion
+        #region Public Properties
+        public NumericType NumericType { get; set; } = NumericType.All;
+        #endregion
 
-		#region Fields
-		private NumericType _type = NumericType.All;
-		#endregion
-
-		#region Constants
-		private const string DefaultErrorMessage = "The {0} field must be of type '{1}'.";
+        #region Constants
+        private const string DefaultErrorMessage = "The {0} field must be of type '{1}'.";
 		#endregion
 	}
 

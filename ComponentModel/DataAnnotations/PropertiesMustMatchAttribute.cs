@@ -81,10 +81,7 @@ namespace System.ComponentModel.DataAnnotations
 			private set;
 		}
 
-		public object TypeId
-		{
-			get { return _typeId; }
-		}
+        public object TypeId => _typeId;
 		#endregion
 
 		#region Fields

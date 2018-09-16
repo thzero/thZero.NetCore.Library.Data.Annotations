@@ -90,29 +90,15 @@ namespace System.ComponentModel.DataAnnotations
 
 			return true;
 		}
-		#endregion
+        #endregion
 
-		#region Public Properties
-		public int Maximum
-		{
-			get { return _max; }
-			set { _max = value; }
-		}
+        #region Public Properties
+        public int Maximum { get; set; } = int.MaxValue;
+        public int Minimum { get; set; } = int.MinValue;
+        #endregion
 
-		public int Minimum
-		{
-			get { return _min; }
-			set { _min = value; }
-		}
-		#endregion
-
-		#region Fields
-		private int _max = int.MaxValue;
-		private int _min = int.MinValue;
-		#endregion
-
-		#region Constants
-		private const string DefaultErrorMessage = "The {0} field must be between {1} and {2}.";
+        #region Constants
+        private const string DefaultErrorMessage = "The {0} field must be between {1} and {2}.";
 		#endregion
 	}
 }
