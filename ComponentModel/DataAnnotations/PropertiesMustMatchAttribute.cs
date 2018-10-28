@@ -81,7 +81,7 @@ namespace System.ComponentModel.DataAnnotations
 			private set;
 		}
 
-        public object TypeId => _typeId;
+        public override object TypeId => _typeId;
 		#endregion
 
 		#region Fields
