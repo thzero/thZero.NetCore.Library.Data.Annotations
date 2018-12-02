@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thZero.NetCore.Library.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thZero.NetCore.Library", "..\thZero.NetCore.Library\thZero.NetCore.Library.csproj", "{3E4D56D3-787E-4A88-9498-5242C921E2C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thZero.NetCore.Library.Localization", "..\thZero.NetCore.Library.Localization\thZero.NetCore.Library.Localization.csproj", "{7696443F-B5C9-46EC-B2C1-EC63A3E264D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thZero.NetCore.Library.Services.Localization", "..\thZero.NetCore.Library.Services.Localization\thZero.NetCore.Library.Services.Localization.csproj", "{4813167E-3E92-427C-829C-CF848E325D73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{3E4D56D3-787E-4A88-9498-5242C921E2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E4D56D3-787E-4A88-9498-5242C921E2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E4D56D3-787E-4A88-9498-5242C921E2C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7696443F-B5C9-46EC-B2C1-EC63A3E264D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7696443F-B5C9-46EC-B2C1-EC63A3E264D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7696443F-B5C9-46EC-B2C1-EC63A3E264D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7696443F-B5C9-46EC-B2C1-EC63A3E264D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4813167E-3E92-427C-829C-CF848E325D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4813167E-3E92-427C-829C-CF848E325D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4813167E-3E92-427C-829C-CF848E325D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4813167E-3E92-427C-829C-CF848E325D73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

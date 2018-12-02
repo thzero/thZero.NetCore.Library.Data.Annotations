@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\thZero.NetCore.Library.Localization\thZero.NetCore.Library.Localization.csproj" />
+		<ProjectReference Include="..\thZero.NetCore.Library.Services.Localization\thZero.NetCore.Library.Services.Localization.csproj" />
 		<ProjectReference Include="..\thZero.NetCore.Library\thZero.NetCore.Library.csproj" />
 	</ItemGroup>
 
