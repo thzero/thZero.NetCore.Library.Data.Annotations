@@ -1,6 +1,6 @@
 ﻿///* ------------------------------------------------------------------------- *
 //thZero.NetCore.Library.Data.Annotations
-//Copyright (C) 2016-2018 thZero.com
+//Copyright (C) 2016-2019 thZero.com
 
 //<development [at] thzero [dot] com>
 
@@ -19,21 +19,39 @@
 
 //using System;
 //using System.Collections.Generic;
+//using System.Web.Mvc;
 
 //namespace System.ComponentModel.DataAnnotations
 //{
-//	// Provides an adapter for the System.ComponentModel.DataAnnotations.StringLengthExAttribute attribute.
-//	public class StringLengthExAttributeAdapter : DataAnnotationsModelValidator<StringLengthExAttribute>
+//	public class RangeAdapter : RangeAdapterBase<RangeAttribute>
 //	{
-//		public StringLengthExAttributeAdapter(ModelMetadata metadata, ControllerContext context, StringLengthExAttribute attribute)
-//			: base (metadata, context, attribute)
-//		{
-//		}
+//		public RangeAdapter(ModelMetadata metadata, ControllerContext context, RangeAttribute attribute)
+//			: base(metadata, context, attribute) { }
+//	}
 
+//	public class RangeAdapterBase<T> : DataAnnotationsModelValidator<T> where T : RangeAttribute
+//	{
+//		public RangeAdapterBase(ModelMetadata metadata, ControllerContext context, T attribute)
+//			: base(metadata, context, attribute) { }
+
+//		#region Public Methods
 //		public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
 //		{
-//			var rule = new ModelClientValidationStringLengthRule(Attribute.ErrorMessage, Attribute.MinimumLength, Attribute.MaximumLength);
+//			var rule = new ModelClientValidationRangeRule(Attribute.ErrorMessage, Attribute.Minimum, Attribute.Maximum);
+
 //			return new[] { rule };
 //		}
+//		#endregion
+//	}
+
+//	public interface IRangeAttribute
+//	{
+//		#region Properties
+//		Type RangeAdapterType { get; }
+//		#endregion
+//	}
+
+//	public interface IIgnoreRangeAdapter
+//	{
 //	}
 //}

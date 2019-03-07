@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -21,17 +21,27 @@ using System;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	public abstract class RegularExpressionExAttribute : RegularExpressionAttribute
+	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
+	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+	public sealed class MaxLengthExAttribute : MaxLengthAttribute
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RegularExpressionExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(MaxLengthExAttribute));
 
-		protected RegularExpressionExAttribute(string pattern) : base(pattern) { }
+		public MaxLengthExAttribute()
+			: base()
+		{
+			ErrorMessageResourceName = "ValidatorMaxLength";
+		}
+
+		public MaxLengthExAttribute(int length)
+			: base(length)
+		{
+			ErrorMessageResourceName = "ValidatorMaxLength";
+		}
 
 		#region Public Methods
 		public override string FormatErrorMessage(string name)
 		{
-			const string Declaration = "FormatErrorMessage";
-
 			try
 			{
 				if (ErrorMessageResourceType != null)
@@ -43,11 +53,11 @@ namespace System.ComponentModel.DataAnnotations
 				if (!resourceName.StartsWith("Validator"))
 					resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name);
+				return thZero.Utilities.Localization.Validation(resourceName, name, Length.ToString());
 			}
 			catch (Exception ex)
 			{
-				log.Error(Declaration, ex);
+				log.Error("FormatErrorMessage", ex);
 				throw;
 			}
 		}

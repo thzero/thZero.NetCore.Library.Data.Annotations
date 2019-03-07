@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -18,21 +18,20 @@ limitations under the License.
  * ------------------------------------------------------------------------- */
 
 using System;
-using System.Globalization;
 
 namespace System.ComponentModel.DataAnnotations
 {
 	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
 	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public sealed class FileExtensionsExAttribute : ValidationAttribute
+	public sealed class UrlExAttribute : ValidationAttribute
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(FileExtensionsExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(UrlExAttribute));
 
-		public FileExtensionsExAttribute()
+		public UrlExAttribute()
 			: base()
 		{
-			ErrorMessageResourceName = "ValidatorFileExtensions";
-			_attribute = new FileExtensionsAttribute();
+			ErrorMessageResourceName = "ValidatorUrl";
+			_attribute = new UrlAttribute();
 		}
 
 		#region Public Methods
@@ -49,7 +48,7 @@ namespace System.ComponentModel.DataAnnotations
 				if (!resourceName.StartsWith("Validator"))
 					resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name);
+				return thZero.Utilities.Localization.StringWithResource(name, resourceName);
 			}
 			catch (Exception ex)
 			{
@@ -65,7 +64,7 @@ namespace System.ComponentModel.DataAnnotations
 		#endregion
 
 		#region Fields
-		private FileExtensionsAttribute _attribute;
+		private UrlAttribute _attribute;
 		#endregion
 	}
 }

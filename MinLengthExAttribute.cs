@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -21,20 +21,21 @@ using System;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	public abstract class RequiredExAttribute : RequiredAttribute
+	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
+	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+	public sealed class MinLengthExAttribute : MinLengthAttribute
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RequiredExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(MinLengthExAttribute));
 
-		protected RequiredExAttribute() : base()
+		public MinLengthExAttribute(int length)
+			: base(length)
 		{
-			ErrorMessageResourceName = "ValidatorRequired";
+			ErrorMessageResourceName = "ValidatorMinLength";
 		}
 
 		#region Public Methods
 		public override string FormatErrorMessage(string name)
 		{
-			const string Declaration = "FormatErrorMessage";
-
 			try
 			{
 				if (ErrorMessageResourceType != null)
@@ -46,33 +47,11 @@ namespace System.ComponentModel.DataAnnotations
 				if (!resourceName.StartsWith("Validator"))
 					resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name);
+				return thZero.Utilities.Localization.Validation(resourceName, name, Length.ToString());
 			}
 			catch (Exception ex)
 			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
-
-		public override bool IsValid(object value)
-		{
-			const string Declaration = "GetClientValidationRules";
-
-			try
-			{
-				if (value is bool)
-					return (bool)value;
-				else if (value is string)
-					return !string.IsNullOrEmpty((string)value);
-				else if (value is Guid)
-					return (Guid)value != Guid.Empty;
-
-				return base.IsValid(value);
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
+				log.Error("FormatErrorMessage", ex);
 				throw;
 			}
 		}

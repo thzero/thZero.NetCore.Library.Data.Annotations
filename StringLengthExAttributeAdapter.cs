@@ -1,6 +1,6 @@
 ﻿///* ------------------------------------------------------------------------- *
 //thZero.NetCore.Library.Data.Annotations
-//Copyright (C) 2016-2018 thZero.com
+//Copyright (C) 2016-2019 thZero.com
 
 //<development [at] thzero [dot] com>
 
@@ -18,23 +18,22 @@
 // * ------------------------------------------------------------------------- */
 
 //using System;
+//using System.Collections.Generic;
 
 //namespace System.ComponentModel.DataAnnotations
 //{
-//	public abstract class DataAnnotationsModelValidatorEx<TAttribute> : DataAnnotationsModelValidator<TAttribute> where TAttribute : global::System.ComponentModel.DataAnnotations.ValidationAttribute
+//	// Provides an adapter for the System.ComponentModel.DataAnnotations.StringLengthExAttribute attribute.
+//	public class StringLengthExAttributeAdapter : DataAnnotationsModelValidator<StringLengthExAttribute>
 //	{
-//		protected DataAnnotationsModelValidatorEx(ModelMetadata metadata, ControllerContext context, TAttribute attribute)
-//			: base(metadata, context, attribute)
+//		public StringLengthExAttributeAdapter(ModelMetadata metadata, ControllerContext context, StringLengthExAttribute attribute)
+//			: base (metadata, context, attribute)
 //		{
-//			ErrorMessageAttribute = attribute.ErrorMessage;
 //		}
 
-//		#region Protected Properties
-//		protected string ErrorMessageAttribute
+//		public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
 //		{
-//			get;
-//			set;
+//			var rule = new ModelClientValidationStringLengthRule(Attribute.ErrorMessage, Attribute.MinimumLength, Attribute.MaximumLength);
+//			return new[] { rule };
 //		}
-//		#endregion
 //	}
 //}

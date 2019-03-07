@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -21,31 +21,8 @@ using System;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
-	public sealed class BooleanRequiredAttribute : ValidationExAttribute
+	public interface IDataAnnotationsModelValidatorAdapter
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(BooleanRequiredAttribute));
-
-		public BooleanRequiredAttribute(string errorMessage) : base(errorMessage)
-		{
-			ErrorMessageResourceName = "ValidatorBooleanRequired";
-		}
-
-		#region Public Methods
-		public override bool IsValid(object value)
-		{
-			const string Declaration = "GetClientValidationRules";
-
-			try
-			{
-				return (value != null) && (bool)value;
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
-		#endregion
+		Type AdapterType { get; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -18,21 +18,20 @@ limitations under the License.
  * ------------------------------------------------------------------------- */
 
 using System;
-using System.Globalization;
 
 namespace System.ComponentModel.DataAnnotations
 {
 	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
 	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public sealed class PhoneExAttribute : ValidationAttribute
+	public sealed class FileExtensionsExAttribute : ValidationAttribute
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(PhoneExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(FileExtensionsExAttribute));
 
-		public PhoneExAttribute()
+		public FileExtensionsExAttribute()
 			: base()
 		{
-			ErrorMessageResourceName = "ValidatorPhone";
-			_attribute = new PhoneAttribute();
+			ErrorMessageResourceName = "ValidatorFileExtensions";
+			_attribute = new FileExtensionsAttribute();
 		}
 
 		#region Public Methods
@@ -65,7 +64,7 @@ namespace System.ComponentModel.DataAnnotations
 		#endregion
 
 		#region Fields
-		private PhoneAttribute _attribute;
+		private FileExtensionsAttribute _attribute;
 		#endregion
 	}
 }

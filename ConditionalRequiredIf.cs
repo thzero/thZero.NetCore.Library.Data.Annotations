@@ -1,6 +1,6 @@
 ﻿///* ------------------------------------------------------------------------- *
 //thZero.NetCore.Library.Data.Annotations
-//Copyright (C) 2016-2018 thZero.com
+//Copyright (C) 2016-2019 thZero.com
 
 //<development [at] thzero [dot] com>
 
@@ -17,8 +17,6 @@
 //limitations under the License.
 // * ------------------------------------------------------------------------- */
 
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.ModelBinding;
 //using System;
 //using System.Collections.Generic;
 //using System.Web.Mvc;
@@ -27,13 +25,23 @@
 
 //namespace System.ComponentModel.DataAnnotations
 //{
-//	public sealed class ConditionalRequiredAttribute : ValidationAttribute, IClientValidatable
+//	public sealed class ConditionalRequiredIfAttribute : ValidationAttribute, IClientValidatable
 //	{
-//		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(ValidationAttribute));
+//		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(ConditionalRequiredIfAttribute));
 
-//		public ConditionalRequiredAttribute(string dependentProperty)
+//		public ConditionalRequiredIfAttribute(string dependentProperty, object targetValue, bool negative)
 //		{
 //			DependentProperty = dependentProperty;
+//			TargetValue = targetValue;
+//			Negative = negative;
+//			ErrorMessageResourceName = "ValidatorRequired";
+//		}
+
+//		public ConditionalRequiredIfAttribute(string dependentProperty, object targetValue)
+//		{
+//			DependentProperty = dependentProperty;
+//			TargetValue = targetValue;
+//			Negative = false;
 //			ErrorMessageResourceName = "ValidatorRequired";
 //		}
 
@@ -65,12 +73,19 @@
 //			var rule = new ModelClientValidationRule()
 //			{
 //				ErrorMessage = FormatErrorMessage(metadata.GetDisplayName()),
-//				ValidationType = "conditionalrequired",
+//				ValidationType = "conditionalrequiredif",
 //			};
 
-//			string dependentProperty = BuildDependentPropertyId(metadata, context as ViewContext);
 //			// Parameter names must be lower case
+//			string dependentProperty = BuildDependentPropertyId(metadata, context as ViewContext);
 //			rule.ValidationParameters.Add("dependentproperty", dependentProperty);
+
+//			string targetValue = (TargetValue ?? string.Empty).ToString();
+//			if (TargetValue.GetType() == typeof(bool))
+//				targetValue = targetValue.ToLower();
+//			rule.ValidationParameters.Add("targetvalue", targetValue);
+
+//			rule.ValidationParameters.Add("negative", Negative.ToString().ToLower());
 
 //			yield return rule;
 //		}
@@ -100,6 +115,8 @@
 
 //		#region Public Properties
 //		public string DependentProperty { get; set; }
+//		public bool Negative { get; set; }
+//		public object TargetValue { get; set; }
 //		#endregion
 
 //		#region Protected Methods
@@ -107,22 +124,49 @@
 //		{
 //			Enforce.AgainstNull(() => validationContext);
 
-//			// get a reference to the property this validation depends upon
 //			var containerType = validationContext.ObjectInstance.GetType();
-//			var field = containerType.GetProperty(DependentProperty);
+//			var fieldDependent = containerType.GetProperty(DependentProperty);
+//			if (fieldDependent == null)
+//				// validation failed - return an error
+//				return new ValidationResult("Invalid dependent proprerty.");
 
-//			if (field != null)
+//			// get the value of the dependent property
+//			var dependentValue = fieldDependent.GetValue(validationContext.ObjectInstance, null);
+//			bool validDependent = RequiresDependentValidation(dependentValue);
+//			if (validDependent)
 //			{
-//				// get the value of the dependent property
-//				var dependentValue = field.GetValue(validationContext.ObjectInstance, null);
-
-//				bool valid = IsValid(dependentValue);
+//				bool valid = IsValid(value);
 //				if (!valid)
 //					// validation failed - return an error
 //					return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
 //			}
 
 //			return ValidationResult.Success;
+//		}
+
+//		//protected virtual bool RequiresDependentValidation(object value)
+//		private bool RequiresDependentValidation(object value)
+//		{
+//			const string Declaration = "RequiresDependentValidation";
+
+//			try
+//			{
+//				if (value is bool)
+//					return (bool)value == (bool)TargetValue;
+
+//				if (value is string)
+//					return ((string)TargetValue).Equals((string)value);
+
+//				if (value is Guid)
+//					return ((Guid)TargetValue).Equals((Guid)value);
+
+//				return false;
+//			}
+//			catch (Exception ex)
+//			{
+//				log.Error(Declaration, ex);
+//				throw;
+//			}
 //		}
 //		#endregion
 

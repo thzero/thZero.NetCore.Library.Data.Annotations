@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -21,14 +21,25 @@ using System;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
-	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public abstract class ValidationExAttribute : ValidationAttribute
+	public abstract class RangeExAttribute : RangeAttribute //, IRangeAttribute
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(ValidationExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RangeExAttribute));
 
-		protected ValidationExAttribute(string errorMessage) : base(errorMessage)
+		protected RangeExAttribute(double minimum, double maximum) : base(minimum, maximum)
 		{
+			ErrorMessageResourceName = "ValidatorRange";
+		}
+
+		protected RangeExAttribute(int minimum, int maximum)
+			: base(minimum, maximum)
+		{
+			ErrorMessageResourceName = "ValidatorRange";
+		}
+
+		protected RangeExAttribute(Type type, string minimum, string maximum)
+			: base(type, minimum, maximum)
+		{
+			ErrorMessageResourceName = "ValidatorRange";
 		}
 
 		#region Public Methods
@@ -47,7 +58,7 @@ namespace System.ComponentModel.DataAnnotations
 				if (!resourceName.StartsWith("Validator"))
 					resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.StringWithResource(name, resourceName);
+				return thZero.Utilities.Localization.Validation(resourceName, name, Minimum.ToString(), Maximum.ToString());
 			}
 			catch (Exception ex)
 			{
@@ -55,6 +66,10 @@ namespace System.ComponentModel.DataAnnotations
 				throw;
 			}
 		}
+		#endregion
+
+		#region Public Properties
+		//public virtual Type RangeAdapterType { get { return typeof(RangeAdapter); } }
 		#endregion
 	}
 }

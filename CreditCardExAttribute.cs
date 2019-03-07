@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -18,7 +18,6 @@ limitations under the License.
  * ------------------------------------------------------------------------- */
 
 using System;
-using System.Globalization;
 
 namespace System.ComponentModel.DataAnnotations
 {

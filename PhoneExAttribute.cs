@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -23,14 +23,15 @@ namespace System.ComponentModel.DataAnnotations
 {
 	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
 	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public sealed class StringLengthExAttribute : StringLengthAttribute //, IDataAnnotationsModelValidatorAdapter
+	public sealed class PhoneExAttribute : ValidationAttribute
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(StringLengthExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(PhoneExAttribute));
 
-		public StringLengthExAttribute(int length)
-			: base(length)
+		public PhoneExAttribute()
+			: base()
 		{
-			ErrorMessageResourceName = "ValidatorStringLength";
+			ErrorMessageResourceName = "ValidatorPhone";
+			_attribute = new PhoneAttribute();
 		}
 
 		#region Public Methods
@@ -47,7 +48,7 @@ namespace System.ComponentModel.DataAnnotations
 				if (!resourceName.StartsWith("Validator"))
 					resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name, MaximumLength.ToString());
+				return thZero.Utilities.Localization.Validation(resourceName, name);
 			}
 			catch (Exception ex)
 			{
@@ -55,10 +56,15 @@ namespace System.ComponentModel.DataAnnotations
 				throw;
 			}
 		}
+
+		public override bool IsValid(object value)
+		{
+			return _attribute.IsValid(value);
+		}
 		#endregion
 
-		#region Public Properties
-		//public Type AdapterType { get { return typeof(StringLengthExAttributeAdapter); } }
+		#region Fields
+		private PhoneAttribute _attribute;
 		#endregion
 	}
 }

@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -21,8 +21,17 @@ using System;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	public interface IDataAnnotationsModelValidatorAdapter
+	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
+	public sealed class AlphaAttribute : RegularExpressionExAttribute
 	{
-		Type AdapterType { get; }
+		public AlphaAttribute() : base("^[a-zA-Z]*$")
+		{
+			ErrorMessage = "The {0} field must be a valid alpha sequence.";
+			ErrorMessageResourceName = "ValidatorAlpha";
+
+			//DataAnnotationsModelValidatorProvider.RegisterAdapter(
+			//	typeof(AlphaAttribute),
+			//	typeof(RegularExpressionAttributeAdapter));
+		}
 	}
 }

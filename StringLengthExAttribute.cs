@@ -1,6 +1,6 @@
 ﻿/* ------------------------------------------------------------------------- *
 thZero.NetCore.Library.Data.Annotations
-Copyright (C) 2016-2018 thZero.com
+Copyright (C) 2016-2019 thZero.com
 
 <development [at] thzero [dot] com>
 
@@ -21,32 +21,21 @@ using System;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	public abstract class RangeExAttribute : RangeAttribute //, IRangeAttribute
+	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
+	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+	public sealed class StringLengthExAttribute : StringLengthAttribute //, IDataAnnotationsModelValidatorAdapter
 	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RangeExAttribute));
+		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(StringLengthExAttribute));
 
-		protected RangeExAttribute(double minimum, double maximum) : base(minimum, maximum)
+		public StringLengthExAttribute(int length)
+			: base(length)
 		{
-			ErrorMessageResourceName = "ValidatorRange";
-		}
-
-		protected RangeExAttribute(int minimum, int maximum)
-			: base(minimum, maximum)
-		{
-			ErrorMessageResourceName = "ValidatorRange";
-		}
-
-		protected RangeExAttribute(Type type, string minimum, string maximum)
-			: base(type, minimum, maximum)
-		{
-			ErrorMessageResourceName = "ValidatorRange";
+			ErrorMessageResourceName = "ValidatorStringLength";
 		}
 
 		#region Public Methods
 		public override string FormatErrorMessage(string name)
 		{
-			const string Declaration = "FormatErrorMessage";
-
 			try
 			{
 				if (ErrorMessageResourceType != null)
@@ -58,18 +47,18 @@ namespace System.ComponentModel.DataAnnotations
 				if (!resourceName.StartsWith("Validator"))
 					resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name, Minimum.ToString(), Maximum.ToString());
+				return thZero.Utilities.Localization.Validation(resourceName, name, MaximumLength.ToString());
 			}
 			catch (Exception ex)
 			{
-				log.Error(Declaration, ex);
+				log.Error("FormatErrorMessage", ex);
 				throw;
 			}
 		}
 		#endregion
 
 		#region Public Properties
-		//public virtual Type RangeAdapterType { get { return typeof(RangeAdapter); } }
+		//public Type AdapterType { get { return typeof(StringLengthExAttributeAdapter); } }
 		#endregion
 	}
 }
