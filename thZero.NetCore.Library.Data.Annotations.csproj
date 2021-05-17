@@ -1,29 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<AssemblyName>thZero.NetCore.Library.Data.Annotations</AssemblyName>
 		<PackageId>thZero.NetCore.Library.Data.Annotations</PackageId>
-    <Description></Description>
-    <Authors>thZero.com</Authors>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description></Description>
+		<Authors>thZero.com</Authors>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/thzero/thZero.NetCore.Library.Data.Annotations</PackageProjectUrl>
-    <RepositoryType>GitHub</RepositoryType>
-    <RepositoryUrl>https://github.com/thzero/thZero.NetCore.Library.Data.Annotations</RepositoryUrl>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/thzero/thZero.NetCore.Library.Data.Annotations</PackageProjectUrl>
+		<RepositoryType>GitHub</RepositoryType>
+		<RepositoryUrl>https://github.com/thzero/thZero.NetCore.Library.Data.Annotations</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Compile Include="..\thZero.NetCore.Library\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
