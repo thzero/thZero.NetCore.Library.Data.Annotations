@@ -17,65 +17,63 @@ See the License for the specific language governing permissions and
 limitations under the License.
  * ------------------------------------------------------------------------- */
 
-using System;
-
 namespace System.ComponentModel.DataAnnotations
 {
-	public abstract class RequiredExAttribute : RequiredAttribute
-	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RequiredExAttribute));
+    public abstract class RequiredExAttribute : RequiredAttribute
+    {
+        private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RequiredExAttribute));
 
-		protected RequiredExAttribute() : base()
-		{
-			ErrorMessageResourceName = "ValidatorRequired";
-		}
+        protected RequiredExAttribute() : base()
+        {
+            ErrorMessageResourceName = "ValidatorRequired";
+        }
 
-		#region Public Methods
-		public override string FormatErrorMessage(string name)
-		{
-			const string Declaration = "FormatErrorMessage";
+        #region Public Methods
+        public override string FormatErrorMessage(string name)
+        {
+            const string Declaration = "FormatErrorMessage";
 
-			try
-			{
-				if (ErrorMessageResourceType != null)
-					return base.FormatErrorMessage(name);
-				if (string.IsNullOrEmpty(ErrorMessageResourceName))
-					return base.FormatErrorMessage(name);
+            try
+            {
+                if (ErrorMessageResourceType != null)
+                    return base.FormatErrorMessage(name);
+                if (string.IsNullOrEmpty(ErrorMessageResourceName))
+                    return base.FormatErrorMessage(name);
 
-				string resourceName = ErrorMessageResourceName;
-				if (!resourceName.StartsWith("Validator"))
-					resourceName = string.Concat("Validator", resourceName);
+                string resourceName = ErrorMessageResourceName;
+                if (!resourceName.StartsWith("Validator"))
+                    resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name);
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
+                return thZero.Utilities.Localization.Validation(resourceName, name);
+            }
+            catch (Exception ex)
+            {
+                log.Error(Declaration, ex);
+                throw;
+            }
+        }
 
-		public override bool IsValid(object value)
-		{
-			const string Declaration = "GetClientValidationRules";
+        public override bool IsValid(object value)
+        {
+            const string Declaration = "GetClientValidationRules";
 
-			try
-			{
-				if (value is bool)
-					return (bool)value;
-				else if (value is string)
-					return !string.IsNullOrEmpty((string)value);
-				else if (value is Guid)
-					return (Guid)value != Guid.Empty;
+            try
+            {
+                if (value is bool boolean)
+                    return boolean;
+                else if (value is string @string)
+                    return !string.IsNullOrEmpty(@string);
+                else if (value is Guid guid)
+                    return guid != Guid.Empty;
 
-				return base.IsValid(value);
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
-		#endregion
-	}
+                return base.IsValid(value);
+            }
+            catch (Exception ex)
+            {
+                log.Error(Declaration, ex);
+                throw;
+            }
+        }
+        #endregion
+    }
 }

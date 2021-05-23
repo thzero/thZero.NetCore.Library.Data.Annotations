@@ -17,48 +17,45 @@ See the License for the specific language governing permissions and
 limitations under the License.
  * ------------------------------------------------------------------------- */
 
-using System;
-
 namespace System.ComponentModel.DataAnnotations
 {
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
-	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public sealed class StringLengthExAttribute : StringLengthAttribute //, IDataAnnotationsModelValidatorAdapter
-	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(StringLengthExAttribute));
+    //[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    public sealed class StringLengthExAttribute : StringLengthAttribute //, IDataAnnotationsModelValidatorAdapter
+    {
+        private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(StringLengthExAttribute));
 
-		public StringLengthExAttribute(int length)
-			: base(length)
-		{
-			ErrorMessageResourceName = "ValidatorStringLength";
-		}
+        public StringLengthExAttribute(int length)
+            : base(length)
+        {
+            ErrorMessageResourceName = "ValidatorStringLength";
+        }
 
-		#region Public Methods
-		public override string FormatErrorMessage(string name)
-		{
-			try
-			{
-				if (ErrorMessageResourceType != null)
-					return base.FormatErrorMessage(name);
-				if (string.IsNullOrEmpty(ErrorMessageResourceName))
-					return base.FormatErrorMessage(name);
+        #region Public Methods
+        public override string FormatErrorMessage(string name)
+        {
+            try
+            {
+                if (ErrorMessageResourceType != null)
+                    return base.FormatErrorMessage(name);
+                if (string.IsNullOrEmpty(ErrorMessageResourceName))
+                    return base.FormatErrorMessage(name);
 
-				string resourceName = ErrorMessageResourceName;
-				if (!resourceName.StartsWith("Validator"))
-					resourceName = string.Concat("Validator", resourceName);
+                string resourceName = ErrorMessageResourceName;
+                if (!resourceName.StartsWith("Validator"))
+                    resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name, MaximumLength.ToString());
-			}
-			catch (Exception ex)
-			{
-				log.Error("FormatErrorMessage", ex);
-				throw;
-			}
-		}
-		#endregion
+                return thZero.Utilities.Localization.Validation(resourceName, name, MaximumLength.ToString());
+            }
+            catch (Exception ex)
+            {
+                log.Error("FormatErrorMessage", ex);
+                throw;
+            }
+        }
+        #endregion
 
-		#region Public Properties
-		//public Type AdapterType { get { return typeof(StringLengthExAttributeAdapter); } }
-		#endregion
-	}
+        #region Public Properties
+        //public Type AdapterType { get { return typeof(StringLengthExAttributeAdapter); } }
+        #endregion
+    }
 }

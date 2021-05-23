@@ -17,79 +17,77 @@ See the License for the specific language governing permissions and
 limitations under the License.
  * ------------------------------------------------------------------------- */
 
-using System;
 using System.Globalization;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
-	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public sealed class PropertiesMustMatchAttribute : ValidationExAttribute
-	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(PropertiesMustMatchAttribute));
+    //[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    public sealed class PropertiesMustMatchAttribute : ValidationExAttribute
+    {
+        private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(PropertiesMustMatchAttribute));
 
-		public PropertiesMustMatchAttribute() : base(DefaultErrorMessage)
-		{
-			ErrorMessageResourceName = "ValidatorPropertiesMustMatch";
-		}
+        public PropertiesMustMatchAttribute() : base(DefaultErrorMessage)
+        {
+            ErrorMessageResourceName = "ValidatorPropertiesMustMatch";
+        }
 
-		#region Public Methods
-		public override string FormatErrorMessage(string name)
-		{
-			const string Declaration = "FormatErrorMessage";
+        #region Public Methods
+        public override string FormatErrorMessage(string name)
+        {
+            const string Declaration = "FormatErrorMessage";
 
-			try
-			{
-				return string.Format(CultureInfo.CurrentUICulture, base.FormatErrorMessage(name), name, Property1, Property2);
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
+            try
+            {
+                return string.Format(CultureInfo.CurrentUICulture, base.FormatErrorMessage(name), name, Property1, Property2);
+            }
+            catch (Exception ex)
+            {
+                log.Error(Declaration, ex);
+                throw;
+            }
+        }
 
-		public override bool IsValid(object value)
-		{
-			const string Declaration = "IsValid";
+        public override bool IsValid(object value)
+        {
+            const string Declaration = "IsValid";
 
-			try
-			{
-				PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(value);
-				object value1 = properties.Find(Property1, true /* ignoreCase */).GetValue(value);
-				object value2 = properties.Find(Property2, true /* ignoreCase */).GetValue(value);
-				return Object.Equals(value1, value2);
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
-		#endregion
+            try
+            {
+                PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(value);
+                object value1 = properties.Find(Property1, true /* ignoreCase */).GetValue(value);
+                object value2 = properties.Find(Property2, true /* ignoreCase */).GetValue(value);
+                return Object.Equals(value1, value2);
+            }
+            catch (Exception ex)
+            {
+                log.Error(Declaration, ex);
+                throw;
+            }
+        }
+        #endregion
 
-		#region Public Properties
-		public string Property1
-		{
-			get;
-			private set;
-		}
+        #region Public Properties
+        public string Property1
+        {
+            get;
+            private set;
+        }
 
-		public string Property2
-		{
-			get;
-			private set;
-		}
+        public string Property2
+        {
+            get;
+            private set;
+        }
 
         public override object TypeId => _typeId;
-		#endregion
+        #endregion
 
-		#region Fields
-		private readonly object _typeId = new object();
-		#endregion
+        #region Fields
+        private readonly object _typeId = new();
+        #endregion
 
-		#region Constants
-		private const string DefaultErrorMessage = "'{0}' and '{1}' fields do not match.";
-		#endregion
-	}
+        #region Constants
+        private const string DefaultErrorMessage = "'{0}' and '{1}' fields do not match.";
+        #endregion
+    }
 }

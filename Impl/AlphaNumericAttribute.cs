@@ -17,21 +17,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
  * ------------------------------------------------------------------------- */
 
-using System;
-
 namespace System.ComponentModel.DataAnnotations
 {
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
-	public sealed class AlphanumericAttribute : RegularExpressionExAttribute
-	{
-		public AlphanumericAttribute() : base("^[a-zA-Z0-9]*$")
-		{
-			ErrorMessage = "The {0} field be a valid alpha numeric sequence.";
-			ErrorMessageResourceName = "ValidatorAlphaNumeric";
+    public sealed class AlphanumericAttribute : RegularExpressionExAttribute
+    {
+        public AlphanumericAttribute() : base("^[a-zA-Z0-9]*$")
+        {
+            ErrorMessage = "The {0} field be a valid alpha numeric sequence.";
+            ErrorMessageResourceName = "ValidatorAlphaNumeric";
 
-			//DataAnnotationsModelValidatorProvider.RegisterAdapter(
-			//	typeof(AlphanumericAttribute),
-			//	typeof(RegularExpressionAttributeAdapter));
-		}
-	}
+            //DataAnnotationsModelValidatorProvider.RegisterAdapter(
+            //	typeof(AlphanumericAttribute),
+            //	typeof(RegularExpressionAttributeAdapter));
+        }
+    }
 }

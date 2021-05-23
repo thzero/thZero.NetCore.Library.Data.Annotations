@@ -17,54 +17,51 @@ See the License for the specific language governing permissions and
 limitations under the License.
  * ------------------------------------------------------------------------- */
 
-using System;
-
 namespace System.ComponentModel.DataAnnotations
 {
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1018:MarkAttributesWithAttributeUsage")]
-	//[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-	public sealed class CreditCardExAttribute : ValidationAttribute
-	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(CreditCardExAttribute));
+    //[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    public sealed class CreditCardExAttribute : ValidationAttribute
+    {
+        private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(CreditCardExAttribute));
 
-		public CreditCardExAttribute()
-			: base()
-		{
-			ErrorMessageResourceName = "ValidatorCreditCard";
-			_attribute = new CreditCardAttribute();
-		}
+        public CreditCardExAttribute()
+            : base()
+        {
+            ErrorMessageResourceName = "ValidatorCreditCard";
+            _attribute = new CreditCardAttribute();
+        }
 
-		#region Public Methods
-		public override string FormatErrorMessage(string name)
-		{
-			try
-			{
-				if (ErrorMessageResourceType != null)
-					return base.FormatErrorMessage(name);
-				if (string.IsNullOrEmpty(ErrorMessageResourceName))
-					return base.FormatErrorMessage(name);
+        #region Public Methods
+        public override string FormatErrorMessage(string name)
+        {
+            try
+            {
+                if (ErrorMessageResourceType != null)
+                    return base.FormatErrorMessage(name);
+                if (string.IsNullOrEmpty(ErrorMessageResourceName))
+                    return base.FormatErrorMessage(name);
 
-				string resourceName = ErrorMessageResourceName;
-				if (!resourceName.StartsWith("Validator"))
-					resourceName = string.Concat("Validator", resourceName);
+                string resourceName = ErrorMessageResourceName;
+                if (!resourceName.StartsWith("Validator"))
+                    resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name);
-			}
-			catch (Exception ex)
-			{
-				log.Error("FormatErrorMessage", ex);
-				throw;
-			}
-		}
+                return thZero.Utilities.Localization.Validation(resourceName, name);
+            }
+            catch (Exception ex)
+            {
+                log.Error("FormatErrorMessage", ex);
+                throw;
+            }
+        }
 
-		public override bool IsValid(object value)
-		{
-			return _attribute.IsValid(value);
-		}
-		#endregion
+        public override bool IsValid(object value)
+        {
+            return _attribute.IsValid(value);
+        }
+        #endregion
 
-		#region Fields
-		private CreditCardAttribute _attribute;
-		#endregion
-	}
+        #region Fields
+        private readonly CreditCardAttribute _attribute;
+        #endregion
+    }
 }

@@ -17,59 +17,57 @@ See the License for the specific language governing permissions and
 limitations under the License.
  * ------------------------------------------------------------------------- */
 
-using System;
-
 namespace System.ComponentModel.DataAnnotations
 {
-	public abstract class RangeExAttribute : RangeAttribute //, IRangeAttribute
-	{
-		private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RangeExAttribute));
+    public abstract class RangeExAttribute : RangeAttribute //, IRangeAttribute
+    {
+        private static readonly thZero.Services.IServiceLog log = thZero.Factory.Instance.RetrieveLogger(typeof(RangeExAttribute));
 
-		protected RangeExAttribute(double minimum, double maximum) : base(minimum, maximum)
-		{
-			ErrorMessageResourceName = "ValidatorRange";
-		}
+        protected RangeExAttribute(double minimum, double maximum) : base(minimum, maximum)
+        {
+            ErrorMessageResourceName = "ValidatorRange";
+        }
 
-		protected RangeExAttribute(int minimum, int maximum)
-			: base(minimum, maximum)
-		{
-			ErrorMessageResourceName = "ValidatorRange";
-		}
+        protected RangeExAttribute(int minimum, int maximum)
+            : base(minimum, maximum)
+        {
+            ErrorMessageResourceName = "ValidatorRange";
+        }
 
-		protected RangeExAttribute(Type type, string minimum, string maximum)
-			: base(type, minimum, maximum)
-		{
-			ErrorMessageResourceName = "ValidatorRange";
-		}
+        protected RangeExAttribute(Type type, string minimum, string maximum)
+            : base(type, minimum, maximum)
+        {
+            ErrorMessageResourceName = "ValidatorRange";
+        }
 
-		#region Public Methods
-		public override string FormatErrorMessage(string name)
-		{
-			const string Declaration = "FormatErrorMessage";
+        #region Public Methods
+        public override string FormatErrorMessage(string name)
+        {
+            const string Declaration = "FormatErrorMessage";
 
-			try
-			{
-				if (ErrorMessageResourceType != null)
-					return base.FormatErrorMessage(name);
-				if (string.IsNullOrEmpty(ErrorMessageResourceName))
-					return base.FormatErrorMessage(name);
+            try
+            {
+                if (ErrorMessageResourceType != null)
+                    return base.FormatErrorMessage(name);
+                if (string.IsNullOrEmpty(ErrorMessageResourceName))
+                    return base.FormatErrorMessage(name);
 
-				string resourceName = ErrorMessageResourceName;
-				if (!resourceName.StartsWith("Validator"))
-					resourceName = string.Concat("Validator", resourceName);
+                string resourceName = ErrorMessageResourceName;
+                if (!resourceName.StartsWith("Validator"))
+                    resourceName = string.Concat("Validator", resourceName);
 
-				return thZero.Utilities.Localization.Validation(resourceName, name, Minimum.ToString(), Maximum.ToString());
-			}
-			catch (Exception ex)
-			{
-				log.Error(Declaration, ex);
-				throw;
-			}
-		}
-		#endregion
+                return thZero.Utilities.Localization.Validation(resourceName, name, Minimum.ToString(), Maximum.ToString());
+            }
+            catch (Exception ex)
+            {
+                log.Error(Declaration, ex);
+                throw;
+            }
+        }
+        #endregion
 
-		#region Public Properties
-		//public virtual Type RangeAdapterType { get { return typeof(RangeAdapter); } }
-		#endregion
-	}
+        #region Public Properties
+        //public virtual Type RangeAdapterType { get { return typeof(RangeAdapter); } }
+        #endregion
+    }
 }
