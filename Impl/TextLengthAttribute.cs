@@ -72,7 +72,7 @@ namespace System.ComponentModel.DataAnnotations
                     return false;
 
                 if (Minimum > Maximum)
-                    throw new Exception("Invalid Min. and Max. values."); // TODO
+                    throw new InvalidMinMaxException();
 
                 if ((Maximum < int.MaxValue) && data.Length > Maximum)
                     return false;
@@ -98,5 +98,12 @@ namespace System.ComponentModel.DataAnnotations
         #region Constants
         private const string DefaultErrorMessage = "The {0} field must be between {1} and {2}.";
         #endregion
+    }
+
+    public class InvalidMinMaxException : Exception
+    {
+        public InvalidMinMaxException() : base("Invalid Min. and Max. values.")
+        {
+        }
     }
 }
