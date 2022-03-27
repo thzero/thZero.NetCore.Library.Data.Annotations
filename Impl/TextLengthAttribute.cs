@@ -64,7 +64,7 @@ namespace System.ComponentModel.DataAnnotations
         {
             try
             {
-                if (!(value is string))
+                if (value is not string)
                     return false;
 
                 string data = value as string;
